@@ -53,7 +53,7 @@ fn main() -> Result<()> {
         args.value_of_lossy("text").unwrap().to_string()  // We've already confirmed it's present, so this will never panic
     } else {
         read_to_string(
-            &*args.value_of_lossy("text").unwrap()  // Same as above comment.
+            &*args.value_of_lossy("input").unwrap()  // Same as above comment.
         )?
     };
 
