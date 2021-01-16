@@ -1,7 +1,10 @@
 [package]
 name = "bottom"
-version = "0.1.0"
+description = "Fantastic (maybe) CLI for translating between bottom and human-readable text"
+version = "0.2.0"
 authors = ["Kaylynn <mkaylynn7@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/kaylynn234/bottom"
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
