@@ -121,7 +121,7 @@ mod tests {
     fn test_char_encode() {
         assert_eq!(
             encode_char('h'),
-            "💖💖,,,,\u{200B}".to_string(),
+            "💖💖,,,,👉👈".to_string(),
         );
     }
 
