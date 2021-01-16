@@ -67,17 +67,24 @@ pub fn encode_char(char: char) -> String {
         value -= subtract_by;
     };
 
-    buffer.push_str("\u{200B}");
+    buffer.push_str("👉👈");
     buffer
 }
 
 pub fn decode_string(input: &dyn AsRef<str>) -> Result<String, TranslationError> {
-    input
-        .as_ref()
-        .trim_end_matches(&"\u{200B}")
-        .split("\u{200B}")
-        .map(|c| decode_char(&c))
-        .collect::<Result<String, _>>()
+    let r = input.as_ref();
+    {
+        if r.contains("\u{200B}") {
+            r.trim_end_matches("\u{200B}")
+            .split("\u{200B}")
+        }
+        else {
+            r.trim_end_matches("👉👈")
+            .split("👉👈")
+        }
+    }
+    .map(|c| decode_char(&c))
+    .collect::<Result<String, _>>()
 }
 
 pub fn decode_char(input: &dyn AsRef<str>) -> Result<char, TranslationError> {
@@ -106,7 +113,7 @@ mod tests {
     fn test_string_encode() {
         assert_eq!(
             encode_string(&"Test"),
-            "💖✨✨✨,,,,\u{200B}💖💖,\u{200B}💖💖✨🥺\u{200B}💖💖✨🥺,\u{200B}".to_string()
+            "💖✨✨✨,,,,👉👈💖💖,👉👈💖💖✨🥺👉👈💖💖✨🥺,👉👈".to_string()
         );
     }
 
@@ -114,7 +121,7 @@ mod tests {
     fn test_char_encode() {
         assert_eq!(
             encode_char('h'),
-            "💖💖,,,,\u{200B}".to_string(),
+            "💖💖,,,,👉👈".to_string(),
         );
     }
 
