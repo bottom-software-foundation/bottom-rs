@@ -1,5 +1,5 @@
 [package]
-name = "bottom"
+name = "bottomify"
 description = "Fantastic (maybe) CLI for translating between bottom and human-readable text"
 version = "0.2.0"
 authors = ["Kaylynn <mkaylynn7@gmail.com>"]
