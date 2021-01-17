@@ -1,7 +1,7 @@
 [package]
 name = "bottomify"
 description = "Fantastic (maybe) CLI for translating between bottom and human-readable text"
-version = "0.2.0"
+version = "1.0.0"
 authors = ["Kaylynn <mkaylynn7@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/kaylynn234/bottom"
@@ -14,4 +14,3 @@ anyhow = "1.0.38"
 clap = "2.33.3"
 lazy_static = "1.4.0"
 maplit = "1.0.2"
-unicode-segmentation = "1"
