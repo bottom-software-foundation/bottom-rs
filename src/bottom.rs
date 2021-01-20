@@ -1,4 +1,6 @@
 use std::collections::HashMap;
+use lazy_static::lazy_static;
+use maplit::hashmap;
 use std::error::Error;
 use std::fmt;
 

@@ -8,12 +8,6 @@ use std::{
 use anyhow::{Context, Result};
 use clap::{crate_authors, crate_version, App, Arg, ArgGroup};
 
-#[macro_use]
-extern crate lazy_static;
-
-#[macro_use]
-extern crate maplit;
-
 fn main() -> Result<()> {
     let args = App::new("Bottom translator")
         .about("Fantastic (maybe) CLI for translating between bottom and human-readable text")
