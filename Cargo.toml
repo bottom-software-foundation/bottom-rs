@@ -12,12 +12,15 @@ edition = "2018"
 [dependencies]
 anyhow = "1.0.38"
 clap = "2.33.3"
+phf = "0.8.0"
+
+[workspace]
+members = ["bench"]
+
+[profile.bench]
+debug = true
+
+[build-dependencies]
 lazy_static = "1.4.0"
 maplit = "1.0.2"
-
-[dev-dependencies]
-criterion = "0.3.3"
-
-[[bench]]
-name = "speed"
-harness = false
+phf_codegen = "0.8.0"
