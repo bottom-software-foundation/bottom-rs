@@ -22,7 +22,7 @@ pub fn encode_byte(value: u8) -> &'static str {
 
 pub fn decode_byte(input: &dyn AsRef<str>) -> Result<u8, TranslationError> {
     let input_ref = input.as_ref();
-    let result = EMOJI_TO_BYTE.get(input_ref).ok_or(TranslationError {
+    let result = EMOJI_TO_BYTE.get(input_ref).ok_or_else(|| TranslationError {
         why: format!("Cannot decode character {}", input_ref),
     })?;
     Ok(*result)
