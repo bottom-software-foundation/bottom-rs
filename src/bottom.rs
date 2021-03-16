@@ -32,8 +32,22 @@ pub fn encode_string(input: &dyn AsRef<str>) -> String {
     input.as_ref().bytes().map(encode_byte).collect::<String>()
 }
 
-pub fn decode_string(input: &dyn AsRef<str>) -> Result<String, TranslationError> {
-    let input = input.as_ref();
+pub fn delongate(input: &str) -> String {
+    return input
+        .replace(":sparkling_heart:", "💖")
+        .replace(":pleading_face:", "🥺")
+        .replace(":point_left:", "👈")
+        .replace(":point_right:", "👉")
+        .replace(":sparkles:", "✨");
+}
+
+pub fn decode_string_long<'a>(input: &dyn AsRef<str>, do_delongate: bool) -> Result<String, TranslationError> {
+    let mut input = input.as_ref();
+    let new_input;
+    if do_delongate{
+        new_input = delongate(input);
+        input = new_input.as_ref();
+    }
     let result = {
         // Older versions used a ZWSP as a character separator, instead of `👉👈`.
         let split_char = input
@@ -55,6 +69,10 @@ pub fn decode_string(input: &dyn AsRef<str>) -> Result<String, TranslationError>
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn decode_string<'a>(input: &dyn AsRef<str>) -> Result<String, TranslationError> {
+        return decode_string_long(input, false);
+    }
 
     #[test]
     fn test_string_encode() {
@@ -117,6 +135,15 @@ mod tests {
             )
             .unwrap(),
             "がんばれ",
+        );
+    }
+
+    #[test]
+    fn test_long_names() {
+        assert_eq!(
+            decode_string_long(&":sparkling_heart::sparkles::sparkles::pleading_face:,:point_right::point_left::sparkling_heart::sparkling_heart::sparkles:,:point_right::point_left::sparkling_heart::sparkling_heart::sparkles::point_right::point_left::sparkling_heart::sparkling_heart:,,,:point_right::point_left:", true)
+                .unwrap(),
+            "Long",
         );
     }
 }
