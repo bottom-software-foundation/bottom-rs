@@ -1,14 +1,13 @@
+use lazy_static::lazy_static;
+use maplit::hashmap;
+use phf_codegen;
+use std::collections::HashMap;
 use std::env;
 use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::path::Path;
-use phf_codegen;
-use maplit::hashmap;
-use std::collections::HashMap;
-use lazy_static::lazy_static;
 
 lazy_static! {
-
     static ref CHARACTER_VALUES: HashMap<u8, &'static str> = hashmap! {
         200 => "🫂" ,
         50 => "💖",
@@ -19,7 +18,7 @@ lazy_static! {
     };
     static ref BYTE_TO_EMOJI: [String; 256] = {
         const EMPTY_STRING: String = String::new();
-    
+
         let mut m = [EMPTY_STRING; 256];
         for i in 0..=255u8 {
             m[i as usize] = byte_to_emoji(i);
@@ -73,7 +72,11 @@ fn main() {
 
     write!(&mut file, "];\n").unwrap();
 
-    write!(&mut file, "static EMOJI_TO_BYTE: phf::Map<&'static str, u8> = ").unwrap();
+    write!(
+        &mut file,
+        "static EMOJI_TO_BYTE: phf::Map<&'static str, u8> = "
+    )
+    .unwrap();
 
     let mut m = phf_codegen::Map::new();
 

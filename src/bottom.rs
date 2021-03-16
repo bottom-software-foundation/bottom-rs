@@ -22,9 +22,11 @@ pub fn encode_byte(value: u8) -> &'static str {
 
 pub fn decode_byte(input: &dyn AsRef<str>) -> Result<u8, TranslationError> {
     let input_ref = input.as_ref();
-    let result = EMOJI_TO_BYTE.get(input_ref).ok_or_else(|| TranslationError {
-        why: format!("Cannot decode character {}", input_ref),
-    })?;
+    let result = EMOJI_TO_BYTE
+        .get(input_ref)
+        .ok_or_else(|| TranslationError {
+            why: format!("Cannot decode character {}", input_ref),
+        })?;
     Ok(*result)
 }
 
@@ -36,9 +38,7 @@ pub fn decode_string(input: &dyn AsRef<str>) -> Result<String, TranslationError>
     let input = input.as_ref();
     let result = {
         // Older versions used a ZWSP as a character separator, instead of `👉👈`.
-        let split_char = input
-            .chars()
-            .find(|&c| c == '\u{200b}' || c == '👉');
+        let split_char = input.chars().find(|&c| c == '\u{200b}' || c == '👉');
 
         if let Some('\u{200b}') = split_char {
             input.trim_end_matches("\u{200B}").split("\u{200B}")
