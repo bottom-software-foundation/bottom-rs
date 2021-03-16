@@ -19,6 +19,9 @@ fn main() -> Result<()> {
         .arg(Arg::from_usage(
             "regress -r --regress 'Translate bottom to human-readable text (futile)'",
         ))
+        .arg(Arg::from_usage(
+            "-d --decode-long 'When using regress mode, decode emojis in long-name form (e.g. :sparkling_heart:, useful for pasting from slack)'",
+        ))
         .group(
             ArgGroup::with_name("action")
                 .required(true)
@@ -54,7 +57,8 @@ fn main() -> Result<()> {
     let result = if args.is_present("bottomify") {
         bottom::encode_string(&input)
     } else {
-        bottom::decode_string(&input).context("The input was invalid.")?
+        let delongate = args.is_present("decode-long");
+        bottom::decode_string_long(&input, delongate).context("The input was invalid.")?
     };
 
     if file_output {
