@@ -4,7 +4,7 @@ use std::io::{BufWriter, Write};
 use std::path::Path;
 use phf_codegen;
 use maplit::hashmap;
-use std::{collections::HashMap, mem::{self, MaybeUninit}};
+use std::collections::HashMap;
 use lazy_static::lazy_static;
 
 lazy_static! {
@@ -18,12 +18,13 @@ lazy_static! {
         0 => "❤️",
     };
     static ref BYTE_TO_EMOJI: [String; 256] = {
-        // SAFETY: safe
-        let mut m: [MaybeUninit<String>; 256] = unsafe { MaybeUninit::uninit().assume_init() };
+        const EMPTY_STRING: String = String::new();
+    
+        let mut m = [EMPTY_STRING; 256];
         for i in 0..=255u8 {
-            m[i as usize] = MaybeUninit::new(byte_to_emoji(i));
+            m[i as usize] = byte_to_emoji(i);
         }
-        unsafe { mem::transmute::<_, [String; 256]>(m) }
+        m
     };
 }
 
