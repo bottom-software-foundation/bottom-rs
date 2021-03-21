@@ -31,10 +31,6 @@ fn byte_to_emoji(value: u8) -> String {
     let mut buffer = String::new();
     let mut value = value;
 
-    if value == 0 {
-        return CHARACTER_VALUES[&0].to_string();
-    }
-
     loop {
         let (to_push, subtract_by) = {
             if value >= 200 {
@@ -48,12 +44,16 @@ fn byte_to_emoji(value: u8) -> String {
             } else if value >= 1 {
                 (CHARACTER_VALUES[&1], 1)
             } else {
-                break;
+                (CHARACTER_VALUES[&0], 0)
             }
         };
 
         buffer.push_str(to_push);
         value -= subtract_by;
+
+        if value == 0 {
+            break;
+        }
     }
 
     buffer.push_str("👉👈");
