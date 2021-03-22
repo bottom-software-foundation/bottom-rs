@@ -119,4 +119,17 @@ mod tests {
             "がんばれ",
         );
     }
+
+    #[test]
+    fn test_embedded_null_byte() {
+        assert_eq!(
+            encode_string(&"\0"),
+            "❤️👉👈",
+        );
+        assert_eq!(
+            decode_string(&"❤️👉👈")
+                .unwrap(),
+            "\0",
+        );
+    }
 }

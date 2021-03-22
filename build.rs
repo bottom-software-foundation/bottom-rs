@@ -10,7 +10,7 @@ fn byte_to_emoji(value: u8) -> String {
     let mut value = value;
 
     if value == 0 {
-        return "❤️".to_string();
+        buffer.push_str("❤️");
     }
 
     loop {
