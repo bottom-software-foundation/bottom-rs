@@ -21,6 +21,4 @@ members = ["bench"]
 debug = true
 
 [build-dependencies]
-lazy_static = "1.4.0"
-maplit = "1.0.2"
 phf_codegen = "0.8.0"
