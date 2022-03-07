@@ -29,7 +29,7 @@ As you can see, using `bottom` to encode text is extremely space-efficient, and 
 This implementation can encode text at *approximately* 30MB/s.
 
 ## Usage
-Clone the repo, run ``cargo build``, and then use the CLI.
+Clone the repo, run `cargo build --release`, and then use the CLI with `./target/release/bottomify`.
 ```
 Bottom translator 1.0.0
 Kaylynn <mkaylynn7@gmail.com>
